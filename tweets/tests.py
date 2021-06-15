@@ -9,7 +9,7 @@ class TweetTests(TestCase):
 
     def test_hours_to_now(self):
         haiming = User.objects.create_user(username='hzhan236')
-        tweet = Tweet.objects.create(user=haiming, content='SDE is awesome!')
+        tweet = Tweet.objects.create(user=haiming, content='TEST TEST TEST')
         tweet.created_at = utc_now() - timedelta(hours=10)
         tweet.save()
         self.assertEqual(tweet.hours_to_now, 10)
