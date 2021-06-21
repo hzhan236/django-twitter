@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from tweets.api.serializers import TweetSerializer, TweetSerializerForCreate
 from tweets.models import Tweet
+from newsfeeds.services import NewsFeedService
 
 
 class TweetViewSet(viewsets.GenericViewSet):
@@ -28,7 +29,7 @@ class TweetViewSet(viewsets.GenericViewSet):
 
     def create(self, request):
         """
-        Overrde create method, because the default logged_in user are supposed to be tweet.user
+        Override create method, because the default logged_in user are supposed to be tweet.user
         """
         serializer = TweetSerializerForCreate(
             data=request.data,
@@ -42,4 +43,5 @@ class TweetViewSet(viewsets.GenericViewSet):
             }, status=400)
         # save will call create method in TweetSerializerForCreate
         tweet = serializer.save()
+        NewsFeedService.fanout_to_followers(tweet)
         return Response(TweetSerializer(tweet).data, status=201)
