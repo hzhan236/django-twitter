@@ -31,7 +31,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializerForCreate(serializers.ModelSerializer):
-    # 这两项必须手动添加
+    # tweet_id and user_id has to be added
     # 因为默认 ModelSerializer 里只会自动包含 user 和 tweet 而不是 user_id 和 tweet_id
     tweet_id = serializers.IntegerField()
     user_id = serializers.IntegerField()

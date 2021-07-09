@@ -80,7 +80,6 @@ class LikeApiTests(TestCase):
         self.dongxie_client.post(LIKE_BASE_URL, data)
         self.assertEqual(comment.like_set.count(), 2)
 
-
     def test_cancel(self):
         tweet = self.create_tweet(self.linghu)
         comment = self.create_comment(self.dongxie, tweet)
@@ -136,7 +135,6 @@ class LikeApiTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(tweet.like_set.count(), 0)
         self.assertEqual(comment.like_set.count(), 0)
-
 
     def test_likes_in_comments_api(self):
         tweet = self.create_tweet(self.linghu)
