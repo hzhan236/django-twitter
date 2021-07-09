@@ -25,6 +25,7 @@ class TweetSerializer(serializers.ModelSerializer):
 
     def get_likes_count(self, obj):
         return obj.like_set.count()
+
     def get_comments_count(self, obj):
         return obj.comment_set.count()
 

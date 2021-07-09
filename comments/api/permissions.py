@@ -12,6 +12,7 @@ class IsObjectOwner(BasePermission):
     """
     message = "You do not have permission to access this object"
 
+    # we do not have to define has_permission here, since it's defined in BasePermission father class.
     def has_permission(self, request, view):
         return True
 
