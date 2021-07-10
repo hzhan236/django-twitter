@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_filters',
     'notifications',
+
     # project apps
     'accounts',
     'tweets',
