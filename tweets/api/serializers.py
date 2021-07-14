@@ -1,4 +1,4 @@
-from accounts.api.serializers import UserSerializerForTweet, UserSerializer
+from accounts.api.serializers import UserSerializerForTweet
 from comments.api.serializers import CommentSerializer
 from likes.api.serializers import LikeSerializer
 from likes.services import LikeService
