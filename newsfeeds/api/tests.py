@@ -112,27 +112,27 @@ class NewsFeedApiTests(TestCase):
         self.assertEqual(response.data['results'][0]['id'], new_newsfeed.id)
 
     def test_user_cache(self):
-        profile = self.dongxie.profile
+        profile = self.bentley.profile
         profile.nickname = 'huanglaoxie'
         profile.save()
 
-        self.assertEqual(self.linghu.username, 'linghu')
-        self.create_newsfeed(self.dongxie, self.create_tweet(self.linghu))
-        self.create_newsfeed(self.dongxie, self.create_tweet(self.dongxie))
+        self.assertEqual(self.haiming.username, 'haiming')
+        self.create_newsfeed(self.bentley, self.create_tweet(self.haiming))
+        self.create_newsfeed(self.bentley, self.create_tweet(self.bentley))
 
-        response = self.dongxie_client.get(NEWSFEEDS_URL)
+        response = self.bentley_client.get(NEWSFEEDS_URL)
         results = response.data['results']
-        self.assertEqual(results[0]['tweet']['user']['username'], 'dongxie')
+        self.assertEqual(results[0]['tweet']['user']['username'], 'bentley')
         self.assertEqual(results[0]['tweet']['user']['nickname'], 'huanglaoxie')
-        self.assertEqual(results[1]['tweet']['user']['username'], 'linghu')
+        self.assertEqual(results[1]['tweet']['user']['username'], 'haiming')
 
-        self.linghu.username = 'linghuchong'
-        self.linghu.save()
+        self.haiming.username = 'chong'
+        self.haiming.save()
         profile.nickname = 'huangyaoshi'
         profile.save()
 
-        response = self.dongxie_client.get(NEWSFEEDS_URL)
+        response = self.bentley_client.get(NEWSFEEDS_URL)
         results = response.data['results']
-        self.assertEqual(results[0]['tweet']['user']['username'], 'dongxie')
+        self.assertEqual(results[0]['tweet']['user']['username'], 'bentley')
         self.assertEqual(results[0]['tweet']['user']['nickname'], 'huangyaoshi')
-        self.assertEqual(results[1]['tweet']['user']['username'], 'linghuchong')
+        self.assertEqual(results[1]['tweet']['user']['username'], 'chong')

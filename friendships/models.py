@@ -40,5 +40,5 @@ class Friendship(models.Model):
         return UserService.get_user_through_cache(self.to_user_id)
 
     # hook up with listeners to invalidate cache
-    pre_delete.connect(friendship_changed, sender=Friendship)
-    post_save.connect(friendship_changed, sender=Friendship)
+pre_delete.connect(friendship_changed, sender=Friendship)
+post_save.connect(friendship_changed, sender=Friendship)
