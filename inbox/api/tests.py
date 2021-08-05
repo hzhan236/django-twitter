@@ -9,6 +9,7 @@ NOTIFICATION_URL = '/api/notifications/'
 class NotificationTests(TestCase):
 
     def setUp(self):
+        self.clear_cache()
         self.haiming, self.haiming_client = self.create_user_and_client('haiming')
         self.bentley, self.bentley_client = self.create_user_and_client('bentley')
         self.bentley_tweet = self.create_tweet(self.bentley)
