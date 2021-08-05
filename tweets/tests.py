@@ -9,6 +9,7 @@ from tweets.models import TweetPhoto
 
 class TweetTests(TestCase):
     def setUp(self):
+        self.clear_cache()
         self.haiming = self.create_user('haiming')
         self.tweet = self.create_tweet(self.haiming, content='Jiuzhang Dafa Hao')
 

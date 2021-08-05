@@ -52,7 +52,7 @@ class FriendshipSerializerForCreate(serializers.ModelSerializer):
 # 即 model_instance.xxx 来获得数据
 # https://www.django-rest-framework.org/api-guide/serializers/#specifying-fields-explicitly
 class FollowerSerializer(serializers.ModelSerializer, FollowingUserIdSetMixin):
-    user = UserSerializerForFriendship(source='from_user')
+    user = UserSerializerForFriendship(source='cached_from_user')
     created_at = serializers.DateTimeField()
     has_followed = serializers.SerializerMethodField()
 
