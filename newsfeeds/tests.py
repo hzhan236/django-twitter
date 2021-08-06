@@ -1,3 +1,4 @@
+from django.conf import settings
 from newsfeeds.services import NewsFeedService
 from testing.testcases import TestCase
 from twitter.cache import USER_NEWSFEEDS_PATTERN
