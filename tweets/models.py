@@ -1,4 +1,3 @@
-from accounts.services import UserService
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -8,6 +7,7 @@ from utils.time_helpers import utc_now
 from django.db.models.signals import post_save
 from utils.listeners import invalidate_object_cache
 from utils.memcached_helper import MemcachedHelper
+from tweets.listeners import push_tweet_to_cache
 
 
 class Tweet(models.Model):
@@ -84,3 +84,4 @@ class TweetPhoto(models.Model):
         return f'{self.tweet_id}: {self.file}'
 
     post_save.connect(invalidate_object_cache, sender=Tweet)
+    post_save.connect(push_tweet_to_cache, sender=Tweet)
