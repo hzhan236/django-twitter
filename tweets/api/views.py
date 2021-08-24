@@ -25,11 +25,13 @@ class TweetViewSet(viewsets.GenericViewSet):
         return [IsAuthenticated()]
 
     @required_params(params=['user_id'])
-    def list(self, request):
+    def list(self, request, *args, **kwargs):
         """
         override list method to not list all tweets, user_id has to be assigned.
         """
         user_id = request.query_params['user_id']
+        tweets = Tweet.objects.filter(user_id=user_id).prefetch_related('user')
+
         cached_tweets = TweetService.get_cached_tweets(user_id)
         page = self.paginator.paginate_cached_list(cached_tweets, request)
         if page is None:
