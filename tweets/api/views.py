@@ -6,12 +6,13 @@ from tweets.api.serializers import (
     TweetSerializerForCreate,
     TweetSerializerForDetail,
 )
+from django.utils.decorators import method_decorator
 from newsfeeds.services import NewsFeedService
+from ratelimit.decorators import ratelimit
 from tweets.models import Tweet
 from tweets.services import TweetService
 from utils.decorators import required_params
 from utils.paginations import EndlessPagination
-
 
 
 class TweetViewSet(viewsets.GenericViewSet):
@@ -50,6 +51,7 @@ class TweetViewSet(viewsets.GenericViewSet):
         )
         return self.get_paginated_response(serializer.data)
 
+    @method_decorator(ratelimit(key='user_or_ip', rate='5/s', method='GET', block=True))
     def retrieve(self, request, *args, **kwargs):
         serializer = TweetSerializerForDetail(
             self.get_object(),
@@ -57,6 +59,7 @@ class TweetViewSet(viewsets.GenericViewSet):
         )
         return Response(serializer.data)
 
+    @method_decorator(ratelimit(key='user', rate='5/m', method='POST', block=True))
     def create(self, request):
         """
         Override create method, because the default logged_in user are supposed to be tweet.user
